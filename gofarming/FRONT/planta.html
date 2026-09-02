@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planta — GoFarming</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="/gofarming/PUBLIC/manifest.json">
+        <!-- PWA Settings -->
+    <meta name="theme-color" content="#2e7d32">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GoFarming">
+    <link rel="apple-touch-icon" href="/gofarming/FRONT/css/Logo.png">
+    <style>
+        .foto-planta {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 20px;
+            border: 1.5px solid var(--border);
+            background: #111;
+        }
+
+        .pergunta-btn {
+            background: #111;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            color: var(--text);
+            padding: 10px 16px;
+            font-size: 13px;
+            cursor: pointer;
+            text-align: left;
+            transition: border-color 0.2s;
+        }
+
+        .pergunta-btn:hover {
+            border-color: var(--neon);
+            color: var(--neon);
+        }
+
+        .msg-ia {
+            background: #111;
+            border-left: 3px solid var(--neon);
+            border-radius: 0 12px 12px 0;
+            padding: 12px 16px;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="dashboard.html" style="color:var(--neon); text-decoration:none; font-size:14px;">← Voltar</a>
+        <div></div>
+    </div>
+
+    <div class="page gap">
+        <img id="foto" class="foto-planta" src="" alt="Foto da planta">
+
+        <div>
+            <h2 id="nome" style="font-size:24px;font-weight:700;"></h2>
+            <div id="especie" class="muted"></div>
+        </div>
+
+        <div class="card">
+            <div class="muted" style="font-size:11px;margin-bottom:6px;">FREQUÊNCIA DE REGA</div>
+            <div id="frequencia" style="font-size:15px;"></div>
+        </div>
+
+        <div id="rega-hoje" style="display:none;">
+            <button class="btn btn-primary" id="btn-regar" onclick="regar()">
+                💧 Já reguei hoje
+            </button>
+        </div>
+
+        <div class="card gap">
+            <div style="font-size:15px;font-weight:600;color:var(--neon);">Perguntar sobre esta planta</div>
+
+            <button class="pergunta-btn" onclick="perguntarIA('Como devo regar essa planta?')">
+                Como devo regar essa planta?
+            </button>
+            <button class="pergunta-btn" onclick="perguntarIA('Qual a melhor iluminação para ela?')">
+                Qual a melhor iluminação para ela?
+            </button>
+            <button class="pergunta-btn" onclick="perguntarIA('Como saber se ela está doente?')">
+                Como saber se ela está doente?
+            </button>
+            <button class="pergunta-btn" onclick="perguntarIA('Como e quando adubar?')">
+                Como e quando adubar?
+            </button>
+
+            <div id="resposta-ia" style="display:none;"></div>
+        </div>
+
+        <button class="btn btn-danger" onclick="removerPlanta()">Remover planta</button>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/planta.js"></script>
+</body>
+</html>

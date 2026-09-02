@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoFarming — Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="/gofarming/PUBLIC/manifest.json">
+    <!-- PWA Settings -->
+    <meta name="theme-color" content="#2e7d32">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GoFarming">
+    <link rel="apple-touch-icon" href="/gofarming/FRONT/css/Logo.png">
+</head>
+<body class="auth-page">
+
+    <div class="auth-card">
+        <!-- Logo e Cabeçalho -->
+        <div class="auth-header">
+            <img src="css/Logo.png" alt="GoFarming Logo" class="auth-logo">
+            <p class="auth-subtitle">Cuide do seu jardim</p>
+        </div>
+
+        <!-- Formulário de Login -->
+        <div class="auth-form">
+            <div class="input-field">
+                <label for="email">E-mail</label>
+                <input class="input" id="email" type="email" placeholder="seu@email.com">
+            </div>
+
+            <div class="input-field">
+                <label for="senha">Senha</label>
+                <input class="input" id="senha" type="password" placeholder="••••••••">
+            </div>
+
+            <button class="btn btn-primary" onclick="logar()">Entrar</button>
+
+            <div class="auth-footer">
+                <span>Ainda não tem conta?</span>
+                <a href="cadastro.html">Criar conta</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

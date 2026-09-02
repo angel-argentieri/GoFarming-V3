@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escanear — GoFarming</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="/gofarming/PUBLIC/manifest.json">
+        <!-- PWA Settings -->
+    <meta name="theme-color" content="#2e7d32">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GoFarming">
+    <link rel="apple-touch-icon" href="/gofarming/FRONT/css/Logo.png">
+    <style>
+        /* Variáveis de cores roxas para reativar os elementos do scanner */
+        :root {
+            --neon: #b490ff;
+            --neon-glow: rgba(180, 144, 255, 0.5);
+            --border: rgba(167, 139, 250, 0.25);
+            --text-muted: #8b8b9e;
+        }
+
+        #camera-area {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            background: #0a0a0a;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        #video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .frame {
+            position: absolute;
+            inset: 40px;
+            border: none;
+            pointer-events: none;
+        }
+
+        .frame::before, .frame::after,
+        .frame-b::before, .frame-b::after {
+            content: '';
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-color: var(--neon);
+            border-style: solid;
+        }
+
+        .frame::before { top: 0; left: 0; border-width: 2px 0 0 2px; border-radius: 4px 0 0 0; }
+        .frame::after  { top: 0; right: 0; border-width: 2px 2px 0 0; border-radius: 0 4px 0 0; }
+        .frame-b::before { bottom: 0; left: 0; border-width: 0 0 2px 2px; border-radius: 0 0 0 4px; }
+        .frame-b::after  { bottom: 0; right: 0; border-width: 0 2px 2px 0; border-radius: 0 0 4px 0; }
+
+        .laser {
+            position: absolute;
+            left: 40px;
+            right: 40px;
+            height: 2px;
+            background: var(--neon);
+            opacity: 0.7;
+            box-shadow: 0 0 8px var(--neon);
+            animation: laser 2s ease-in-out infinite;
+        }
+
+        @keyframes laser {
+            0%, 100% { top: 44px; }
+            50% { top: calc(100% - 44px); }
+        }
+
+        #btn-captura {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: transparent;
+            border: 3px solid var(--neon);
+            box-shadow: 0 0 20px var(--neon-glow);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        #btn-captura::after {
+            content: '';
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--neon);
+        }
+
+        /* Botão para carregar arquivo da galeria */
+        #btn-galeria {
+    position: absolute;
+    bottom: 6px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(13, 13, 18, 0.75);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    backdrop-filter: blur(8px);
+}
+
+        #btn-galeria:hover {
+            border-color: var(--neon);
+            transform: scale(1.05);
+        }
+
+        .spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid rgba(180, 144, 255, 0.2);
+            border-top-color: var(--neon);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        #resultado {
+            display: none;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body style="padding-bottom: 0;">
+
+    <div class="header">
+        <a href="dashboard.html" style="color:var(--neon); text-decoration:none; font-size:14px;">← Voltar</a>
+        <span class="header-title" style="font-size:18px;">Escanear Planta</span>
+        <div></div>
+    </div>
+
+    <div id="camera-area">
+    <video id="video" autoplay playsinline></video>
+    <img id="preview">
+    <div class="frame"></div>
+    <div class="frame-b" style="position:absolute;inset:40px;pointer-events:none;"></div>
+    <div class="laser" id="laser"></div>
+    
+    <button id="btn-captura" onclick="capturar()"></button>
+
+    <!-- Botão da galeria e input de arquivo -->
+    <label for="input-arquivo" id="btn-galeria" title="Carregar da galeria">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--neon)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+        </svg>
+    </label>
+    <input type="file" id="input-arquivo" accept="image/*" style="display:none;" onchange="selecionarArquivo(event)">
+</div>
+
+    <div id="analisando" style="display:none; text-align:center; padding:30px 20px;">
+        <div class="spinner" style="margin: 0 auto 16px;"></div>
+        <p style="color:var(--neon);">Identificando planta...</p>
+    </div>
+
+    <div id="resultado">
+        <div class="card" style="margin-bottom:16px;">
+            <div class="row" style="margin-bottom:14px;">
+                <img id="foto-resultado" style="width:70px;height:70px;border-radius:12px;object-fit:cover;border:1.5px solid var(--border);">
+                <div>
+                    <div id="nome-planta" style="font-size:18px;font-weight:700;"></div>
+                    <div id="especie-planta" style="color:var(--text-muted);font-size:13px;"></div>
+                    <div id="confianca-planta" style="color:var(--neon);font-size:12px;margin-top:4px;"></div>
+                </div>
+            </div>
+            <div style="background:#111;border-radius:12px;padding:12px;margin-bottom:14px;">
+                <div class="muted" style="font-size:11px;margin-bottom:4px;">FREQUÊNCIA DE REGA</div>
+                <div id="frequencia-planta" style="font-size:14px;"></div>
+            </div>
+            <div class="gap">
+                <button class="btn btn-primary" onclick="salvarNoJardim()">Adicionar ao jardim</button>
+                <button class="btn btn-outline" onclick="reiniciar()">Tentar novamente</button>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <script src="js/api.js"></script>
+    <script src="js/scan.js"></script>
+</body>
+</html>
