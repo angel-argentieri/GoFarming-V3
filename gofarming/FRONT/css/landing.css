@@ -1,15 +1,15 @@
 /* ==========================================================================
-   VARIAVEIS DE CORES E ESTILOS - GOFARMING (TEMA PURPLE DARK)
+   VARIAVEIS DE CORES E ESTILOS - GOFARMING (TEMA LIGHT PURPLE - OFICIAL)
    ========================================================================== */
 :root {
-    --bg-dark: #0a0512;          /* Fundo principal bem escuro */
-    --bg-card: #130c21;          /* Fundo dos cards e modal */
-    --bg-card-hover: #1c1330;    /* Hover dos cards */
-    --purple-primary: #a87ffb;   /* Roxo violeta principal dos botões e destaques */
-    --purple-glow: rgba(168, 127, 251, 0.35); /* Efeito neon/brilho */
-    --purple-border: #2e204a;    /* Bordas sutis */
-    --text-title: #ffffff;       /* Texto branco de destaque */
-    --text-muted: #a29bb6;       /* Texto secundário */
+    --bg-dark: #f3edf7;          /* Fundo principal lilás bem claro / suave */
+    --bg-card: #ffffff;          /* Fundo dos cards e modal (Branco) */
+    --bg-card-hover: #faf7fd;    /* Hover leve dos cards */
+    --purple-primary: #7c42f6;   /* Roxo violáceo vibrante dos botões e destaques */
+    --purple-glow: rgba(124, 66, 246, 0.20); /* Efeito de brilho/sombra suave */
+    --purple-border: #ebdff5;    /* Bordas sutis em tom lilás */
+    --text-title: #21153b;       /* Texto escuro arroxeado de alto contraste */
+    --text-muted: #887e9c;       /* Texto secundário */
     --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -44,25 +44,26 @@ a {
    ========================================================================== */
 .btn-solid {
     background-color: var(--purple-primary);
-    color: #0d061a;
+    color: #ffffff;
     font-weight: 700;
     padding: 12px 24px;
     border-radius: 12px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 20px var(--purple-glow);
+    box-shadow: 0 8px 20px var(--purple-glow);
     transition: all 0.3s ease;
 }
 
 .btn-solid:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 30px rgba(168, 127, 251, 0.6);
-    background-color: #b993ff;
+    box-shadow: 0 12px 28px rgba(124, 66, 246, 0.35);
+    background-color: #6a32e1;
 }
 
 .btn-ghost, .btn-line {
     border: 1px solid var(--purple-border);
+    background-color: var(--bg-card);
     color: var(--text-title);
     padding: 12px 24px;
     border-radius: 12px;
@@ -72,7 +73,7 @@ a {
 
 .btn-ghost:hover, .btn-line:hover {
     border-color: var(--purple-primary);
-    background-color: rgba(168, 127, 251, 0.08);
+    background-color: rgba(124, 66, 246, 0.05);
 }
 
 .btn-lg {
@@ -89,7 +90,7 @@ a {
     left: 0;
     width: 100%;
     z-index: 100;
-    background: rgba(10, 5, 18, 0.8);
+    background: rgba(243, 237, 247, 0.85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--purple-border);
 }
@@ -116,7 +117,6 @@ a {
     width: 28px;
     height: 28px;
     stroke: var(--purple-primary);
-    filter: drop-shadow(0 0 8px var(--purple-glow));
 }
 
 .nav-links {
@@ -152,7 +152,7 @@ a {
     transform: translate(-50%, -50%);
     width: 400px;
     height: 400px;
-    background: radial-gradient(circle, var(--purple-glow) 0%, rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, var(--purple-glow) 0%, rgba(243, 237, 247, 0) 70%);
     z-index: -1;
     pointer-events: none;
 }
@@ -167,7 +167,7 @@ a {
     font-weight: 600;
     display: inline-block;
     margin-bottom: 24px;
-    box-shadow: 0 0 15px rgba(168, 127, 251, 0.15);
+    box-shadow: 0 4px 12px rgba(124, 66, 246, 0.08);
 }
 
 .hero-title {
@@ -176,11 +176,11 @@ a {
     line-height: 1.15;
     margin-bottom: 24px;
     letter-spacing: -1px;
+    color: var(--text-title);
 }
 
 .word-swap b {
     color: var(--purple-primary);
-    text-shadow: 0 0 20px var(--purple-glow);
     font-weight: 800;
 }
 
@@ -207,6 +207,7 @@ a {
     background: var(--bg-card);
     border: 1px solid var(--purple-border);
     border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(33, 21, 59, 0.03);
 }
 
 .proof-strip strong {
@@ -227,7 +228,7 @@ a {
 }
 
 /* ==========================================================================
-   SHOWCASE (MOCKUP DO CELULAR)
+   SHOWCASE (MOCKUP DO CELULAR COM FOTO REAL)
    ========================================================================== */
 .showcase {
     max-width: 1100px;
@@ -243,111 +244,27 @@ a {
     background: var(--bg-card);
     border: 2px solid var(--purple-border);
     border-radius: 40px;
-    padding: 20px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 30px var(--purple-glow);
+    padding: 12px 12px 0 12px;
+    box-shadow: 0 20px 40px rgba(33, 21, 59, 0.08), 0 0 25px var(--purple-glow);
     position: relative;
     flex-shrink: 0;
+    overflow: hidden;
 }
 
 .phone-notch {
     width: 120px;
     height: 18px;
     background: var(--bg-dark);
-    margin: 0 auto 16px;
+    margin: 0 auto 12px;
     border-radius: 0 0 12px 12px;
 }
 
-.ps-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.ps-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: var(--purple-border);
-}
-
-.ps-greet {
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-.ps-bell {
-    position: relative;
-    color: var(--purple-primary);
-}
-
-.ps-bell-dot {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 6px;
-    height: 6px;
-    background: var(--purple-primary);
-    border-radius: 50%;
-    box-shadow: 0 0 6px var(--purple-primary);
-}
-
-.ps-card {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid var(--purple-border);
-    border-radius: 16px;
-    padding: 12px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 12px;
-}
-
-.ps-thumb {
-    font-size: 1.5rem;
-    background: var(--bg-dark);
-    padding: 8px;
-    border-radius: 12px;
-}
-
-.ps-info strong {
+.phone-screen-img {
+    width: 100%;
+    height: auto;
     display: block;
-    font-size: 0.875rem;
-}
-
-.ps-info em {
-    display: block;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-style: normal;
-}
-
-.ps-badge {
-    display: inline-block;
-    font-size: 0.7rem;
-    color: var(--purple-primary);
-    margin-top: 4px;
-    font-weight: 600;
-}
-
-.ps-toast {
-    background: var(--purple-primary);
-    color: #0d061a;
-    padding: 12px;
-    border-radius: 12px;
-    margin-top: 20px;
-    font-size: 0.75rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 0 15px var(--purple-glow);
-}
-
-.ps-toast-dot {
-    width: 8px;
-    height: 8px;
-    background: #0d061a;
-    border-radius: 50%;
+    border-radius: 28px 28px 0 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
 }
 
 .showcase-text {
@@ -366,6 +283,7 @@ a {
     font-size: 2.25rem;
     line-height: 1.2;
     margin-bottom: 16px;
+    color: var(--text-title);
 }
 
 .showcase-text p {
@@ -378,7 +296,8 @@ a {
    ========================================================================== */
 .marquee {
     background: var(--bg-card);
-    border-y: 1px solid var(--purple-border);
+    border-top: 1px solid var(--purple-border);
+    border-bottom: 1px solid var(--purple-border);
     padding: 16px 0;
     overflow: hidden;
     white-space: nowrap;
@@ -417,6 +336,7 @@ a {
 
 .section-head h2 {
     font-size: 2.25rem;
+    color: var(--text-title);
 }
 
 .bento-grid {
@@ -431,12 +351,13 @@ a {
     border-radius: 20px;
     padding: 28px;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
 .bento-item:hover {
     border-color: var(--purple-primary);
     transform: translateY(-4px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 15px rgba(168, 127, 251, 0.1);
+    box-shadow: 0 10px 25px rgba(124, 66, 246, 0.12);
 }
 
 .bento-item svg {
@@ -449,6 +370,7 @@ a {
 .bento-item h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
+    color: var(--text-title);
 }
 
 .bento-item p {
@@ -477,6 +399,7 @@ a {
     padding: 24px;
     border-radius: 16px;
     position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
 .fnum {
@@ -490,6 +413,7 @@ a {
 .fstep h3 {
     font-size: 1.1rem;
     margin-bottom: 8px;
+    color: var(--text-title);
 }
 
 .fstep p {
@@ -520,6 +444,7 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
 }
 
 .tech-pill strong {
@@ -545,7 +470,7 @@ a {
     border: 1px solid var(--purple-border);
     border-radius: 32px;
     overflow: hidden;
-    box-shadow: 0 0 50px var(--purple-glow);
+    box-shadow: 0 10px 30px rgba(124, 66, 246, 0.1);
 }
 
 .cta-blob {
@@ -555,7 +480,7 @@ a {
     transform: translate(-50%, -50%);
     width: 300px;
     height: 300px;
-    background: radial-gradient(circle, var(--purple-glow) 0%, rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, var(--purple-glow) 0%, rgba(255,255,255,0) 70%);
     pointer-events: none;
 }
 
@@ -565,6 +490,7 @@ a {
     margin-bottom: 32px;
     position: relative;
     z-index: 1;
+    color: var(--text-title);
 }
 
 .cta h2 span {
